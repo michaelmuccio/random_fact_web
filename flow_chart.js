@@ -4,7 +4,8 @@ $(document).ready(function () {
     var jumbotron = $('#jumbotron');
     var noButton = $('#noButton');
     var randomFactContainer = $('#randomFactContainer');
-   
+    var randomIndex = 0;
+
     var factList = ['There is a .04% chance you will die from Chinese Bat virus. You are a nerd!',
         'Yummy! Sharks eat humans more often than Covid-19 kills humans. Scaredy cat',
         'Have fun getting struck by lightning, because that will happen before you die from Covid-19. You are a nerd!',
@@ -16,7 +17,7 @@ $(document).ready(function () {
         console.log('Yes clicked');
         var randomFact = random_item(factList);
         console.log(randomFact);
-        randomFactContainer.text(random_item(factList));
+        randomFactContainer.text(randomFact);
     });
 
     noButton.on('click', function (e) {
@@ -26,8 +27,15 @@ $(document).ready(function () {
     });
 
     function random_item(items) {
+        var index = items[Math.floor(Math.random() * items.length)];
 
-        return items[Math.floor(Math.random() * items.length)];
+        if (index != randomIndex) {
+            return index;
+        } else {
+            index = randomIndex;
+        }
+
+        random_item(factList);
 
     }
 });
